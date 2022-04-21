@@ -55,20 +55,35 @@ import java.net.http.HttpResponse;
 	*/
 	
 	/*
-		public static HttpRequest Get() {
-		HttpURLConnection connection;
-		HttpClient client = HttpClient.newHttpClient();
-		HttpRequest request   = HttpRequest.newBuilder().uri(URI.create("http://happypets-1867210382.us-east-1.elb.amazonaws.com/api/billing")).build();
-		client.sendAsync(request,HttpResponse.BodyHandlers.ofString())//tell server to recieve response as a string 
-        .thenApply(HttpResponse::body) // returns response gofuture data type used for aysnchronous programming
-        .thenAccept(System.out::println)// once we receive the response we want to apply the ::body method to previous results
-                                        //:: means it's a lamda , once that is done we use this body to print out, using printline method
-        .join();
-		return request;
-	}
+		  public static HttpRequest Get() {
+        HttpURLConnection connection;
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://happypets-2140724455.us-east-1.elb.amazonaws.com/api/billing")).build();
+        client.sendAsync(request, HttpResponse.BodyHandlers.ofString())//tell server to recieve response as a string
+                .thenApply(HttpResponse::body) // returns response gofuture data type used for aysnchronous programming
+                .thenApply(HPMS_Billing::getCustomerID)// once we receive the response we want to apply the ::body method to previous results//:: means it's a lamda , once that is done we use this body to print out, using printline method
+                .join();
+        return request;
+    }
+
+    public static String getCustomerID(String responseBody)
+    {
+
+        JSONArray Billing = new JSONArray(responseBody);
+
+        for (int i = 0; i < Billing.length(); i++) {
+            JSONObject BillingCustomerId = Billing.getJSONObject(i);
+            int id = BillingCustomerId.getInt("customerId");
+            System.out.println(id);
+        }
+        return null;
+    }
+
 	
 	
 	*/
+	
+	
 	
 	
 	
