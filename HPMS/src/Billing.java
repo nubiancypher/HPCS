@@ -58,13 +58,13 @@ import org.json.JSONObject;
 	*/
 	
 	/*
-		  public static HttpRequest Get() {
+		  public static HttpRequest GetID() {
         HttpURLConnection connection;
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://happypets-2140724455.us-east-1.elb.amazonaws.com/api/billing")).build();
         client.sendAsync(request, HttpResponse.BodyHandlers.ofString())//tell server to recieve response as a string
                 .thenApply(HttpResponse::body) // returns response gofuture data type used for aysnchronous programming
-                .thenApply(HPMS_Billing::getCustomerID)// once we receive the response we want to apply the ::body method to previous results//:: means it's a lamda , once that is done we use this body to print out, using printline method
+                .thenApply(Billing::getCustomerID)// once we receive the response we want to apply the ::body method to previous results//:: means it's a lamda , once that is done we use this body to print out, using printline method
                 .join();
         return request;
     }
@@ -82,6 +82,41 @@ import org.json.JSONObject;
         return null;
     }
 
+	
+	
+	*/
+	
+	/*
+	 public static HttpRequest GetName(){
+        HttpURLConnection connection;
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://happypets-2140724455.us-east-1.elb.amazonaws.com/api/billing")).build();
+        client.sendAsync(request, HttpResponse.BodyHandlers.ofString())//tell server to recieve response as a string
+                .thenApply(HttpResponse::body) // returns response gofuture data type used for aysnchronous programming
+                .thenApply(Billing::getName)// once we receive the response we want to apply the ::body method to previous results//:: means it's a lamda , once that is done we use this body to print out, using printline method
+                .join();
+        return request;
+    }
+    public static String getName(String responseBody)
+    {
+        JSONArray Billing = new JSONArray(responseBody);
+
+        for (int i = 0; i < Billing.length(); i++) {
+            JSONObject BillingCustomerId = Billing.getJSONObject(i);
+            String firstName = BillingCustomerId.getString("firstName");
+            String lastName = BillingCustomerId.getString("lastName");
+            String Name = firstName + " " + lastName;
+            System.out.println(Name);
+        }
+        return null;
+
+    }
+    
+    public static void main(String[]args){
+		System.out.println(GetName())
+		System.out.println(GetID())
+
+	}
 	
 	
 	*/
