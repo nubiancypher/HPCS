@@ -13,6 +13,9 @@ import org.json.JSONObject;
 public class Billing { 
 	public  ArrayList<Integer> OfficialIDs;
 	
+	/**
+	 *  Constructor for Billing
+	**/
 	public Billing() throws IOException, InterruptedException {
 		OfficialIDs = getCustomerID(getJSON());
 		System.out.print("Welcome to the HPMS Billing page please enter your customer ID \n"+
@@ -27,10 +30,17 @@ public class Billing {
 		}
 	}
 	
+	/**
+	 *  Constructor for Billing
+	**/
 	public Billing(int id) throws JSONException, IOException, InterruptedException {
 		getBillingInfo(id);
 	}
 	
+	/**
+	 *  Prints out customer objects which reveals all customer information
+	 *  @param possibleID the ID provided by the user
+	**/
 	private void getBillingInfo(int possibleID) throws JSONException, IOException, InterruptedException {
 		JSONArray patient_info = new JSONArray(getJSON());
 		ArrayList<JSONObject> patients = new ArrayList<JSONObject>();
@@ -43,7 +53,13 @@ public class Billing {
 		
 		
 	}
-
+	
+	/**
+	 *  Returns the index of the JSONObject pertaining to the id provided
+	 *  @return index of JSONObject
+	 *  @param possibleID the ID provided by the user
+	 *  @param patients ArrayList of JSONObjects to be searched.
+	**/	
 	private int find(int possibleID, ArrayList<JSONObject> patients) {
 		int found = 0;
 		for(int i=0;i<patients.size();i++) {
@@ -55,6 +71,11 @@ public class Billing {
 		return found;
 	}
 
+	/**
+	 *  Checks whether a given ID is in the online database
+	 *  @returns true if the ID is in the database
+	 *  @param possibleID is the ID that is being searched
+	**/	
 	private boolean verify(int possibleID) {
 		for(int i=0;i<OfficialIDs.size();i++) {
 			if(possibleID == OfficialIDs.get(i)) {
@@ -66,6 +87,7 @@ public class Billing {
 
 	/**
 	 * Extract JSON data from happypets server
+	 * @return String representation of a JSON file
 	 * @throws InterruptedException 
 	 * @throws IOException 
 	**/
@@ -80,6 +102,11 @@ public class Billing {
 		return str;
 	}
 	
+	/**
+	 *  Returns a list of all of the IDs in the JSON file
+	 *  @return A list of all IDs across each JSON object in a file
+	 *  @param String representation of a JSON file
+	**/
 	public static ArrayList<Integer> getCustomerID(String responseBody)
 	{
 	    ArrayList<Integer> IDs = new ArrayList<Integer>();
