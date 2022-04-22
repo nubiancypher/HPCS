@@ -31,7 +31,7 @@ public class Billing {
 	}
 	
 	/**
-	 *  Constructor for Billing
+	 *  Another constructor for Billing
 	**/
 	public Billing(int id) throws JSONException, IOException, InterruptedException {
 		getBillingInfo(id);
