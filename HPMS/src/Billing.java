@@ -1,3 +1,9 @@
+/**
+ *  Billing component of HPMS Application 
+ *  
+ *  @author Jamal Bourne
+ *  @author Ken Cooper
+ **/
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -32,6 +38,7 @@ public class Billing {
 	
 	/**
 	 *  Another constructor for Billing
+	 *  @param id the id entered by the user
 	**/
 	public Billing(int id) throws JSONException, IOException, InterruptedException {
 		getBillingInfo(id);
