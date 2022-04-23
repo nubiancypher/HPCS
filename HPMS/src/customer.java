@@ -1,6 +1,10 @@
+package HPMS.Billing;
+/**
+ * Represents a customer of Happy Pets
+ * @author Jamal Bourne
+ * @author Kenneth Cooper
+**/
 import org.json.JSONObject;
-
-//represents a customer of happy pets inc
 public class customer {
 	private int id;
 	public String firstName;
@@ -16,6 +20,10 @@ public class customer {
 	private String updatedAt;
 	private int creditBalance;
 	
+	/**
+	 *  Constructor for customer
+	 *  @param person The JSON object that contains the data needed
+	**/
 	public customer(JSONObject person) {
 		id = person.getInt("customerId");
 		firstName = person.getString("firstName");
@@ -32,7 +40,11 @@ public class customer {
 		creditBalance = person.getInt("creditBalance");
 	}
 	
-	//what data should people be able to get?
+	
+	/**
+	 * To string method
+	 * @return string representation of a customer
+	**/
 	public String toString() {
 		return ("Name: "+ firstName+" "+lastName+"\n"+
 				"Email: "+email+"\n"+
