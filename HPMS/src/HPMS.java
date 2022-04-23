@@ -1,7 +1,7 @@
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
+import HPMS.Billing.Billing;
 import org.json.JSONException;
 
 public class HPMS {
@@ -58,6 +58,10 @@ public class HPMS {
 		
 	}
 	
+	
+	/**
+	 *  Runs the main HPMS application
+	**/
 	private static void runHPMS() throws IOException, InterruptedException {
 		System.out.print("Welcome to the Happypets Patient Management Service, what would you like to do?\n"+
 						   "1. HappyPets Billing\n"+
@@ -79,25 +83,38 @@ public class HPMS {
 		
 	}
 
+	/**
+	 *  Runs the billing component of HPMS
+	**/
 	public static void runBilling() throws IOException, InterruptedException  {
 		Billing component = new Billing();
 	}
 	
+	/**
+	 *  Runs the billing component and returns customer report based on customer id
+	 *  @param id the id that is provided to the billing component
+	**/
 	public static void runBilling(int id) throws JSONException, IOException, InterruptedException {
 		Billing billing = new Billing(id);
 	}
+	
 	
 	public static void runPP() {
 		System.out.println("This is the method that will implement the patient portal component, whatever that means.");
 		//use patient-portal.jar to access online portal
 	}
 	
+	/**
+	 * Runs patient portal and returns customer report based on customer id
+	 * @param the id that is provided to the patient portal 
+	**/
 	public static void runPP(int id) {
 		System.out.println("run PP with id "+id);
 	}
 	
 	/**
-	 * Makes sure that argument is valid 
+	 * Makes sure that arguments entered by user are valid 
+	 * @param argument is a string argument that is being tested
 	 * @throws InterruptedException 
 	 * @throws IOException 
 	**/
