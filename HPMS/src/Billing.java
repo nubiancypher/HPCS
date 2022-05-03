@@ -49,7 +49,7 @@ public class Billing {
 	 *  Prints out customer objects which reveals all customer information
 	 *  @param possibleID the ID provided by the user
 	**/
-	private void getBillingInfo(int possibleID) throws JSONException, IOException, InterruptedException {
+	public void getBillingInfo(int possibleID) throws JSONException, IOException, InterruptedException {
 		JSONArray patient_info = new JSONArray(getJSON());
 		ArrayList<JSONObject> patients = new ArrayList<JSONObject>();
 		for(int i=0;i<patient_info.length();i++) {
@@ -68,7 +68,7 @@ public class Billing {
 	 *  @param possibleID the ID provided by the user
 	 *  @param patients ArrayList of JSONObjects to be searched.
 	**/	
-	private int find(int possibleID, ArrayList<JSONObject> patients) {
+	public int find(int possibleID, ArrayList<JSONObject> patients) {
 		int found = 0;
 		for(int i=0;i<patients.size();i++) {
 			JSONObject guy = patients.get(i);
@@ -84,7 +84,7 @@ public class Billing {
 	 *  @returns true if the ID is in the database
 	 *  @param possibleID is the ID that is being searched
 	**/	
-	private boolean verify(int possibleID) {
+	public boolean verify(int possibleID) {
 		for(int i=0;i<OfficialIDs.size();i++) {
 			if(possibleID == OfficialIDs.get(i)) {
 				return true;
