@@ -1,11 +1,20 @@
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import HPMS.Billing.Billing;
 import org.json.JSONException;
+import HPMS.Billing.Billing;
+import HPMS.Portal.Portal;
+
+
 
 public class HPMS {
 	
+	/**
+	 *  Main method
+	 *  @param args string arguments for the method, must be preceded with "--"
+	 *  @throws IOException for wrong file
+	 *  @throws InterruptedException for HTTP inturruptions
+	**/
 	public static void main(String args[]) throws IOException, InterruptedException {
 		//verify that arguments begin with double hyphen
 		if(args.length == 0) {
@@ -15,6 +24,10 @@ public class HPMS {
 				String argument = args[0];
 				String id = args[1];
 				if((!valid(argument)) || (!valid(id))) {
+					if((!valid(id)) && (valid(argument))){
+						System.out.println("Invalid ID");
+						System.exit(1);
+					}
 					System.out.println("One or more arguments invalid");
 					System.exit(1);
 				}
@@ -60,58 +73,10 @@ public class HPMS {
 	
 	
 	/**
-	 *  Runs the main HPMS application
+	 * Runs the main HPMS application
+	 * @throws IOException for wrong file
+	 * @throws InterruptedException for HTTP interruption
 	**/
-
-	 public Portal() throws IOException, InterruptedException {
-        // fills the arraylist of official id's with all the id's extracted
-        //from the JSON
-        OfficialIDs = getCustomerID(getJSON());
-        System.out.println("Welcome to HMPS Portal, please enter your customer id \n Your ID: ");
-        Scanner scan  = new Scanner(System.in);
-        //reads computer input
-        int possibleID =  scan.nextInt();
-        //verify that id is in the array of customer id's
-        if(verify(possibleID)){
-            getPortalInfo(possibleID);
-        }else{
-            System.out.println("Invalid ID");
-            System.exit(1);
-        }
-
-
-    }
-    public Portal(int id) throws IOException, InterruptedException {
-        getPortalInfo(id);
-    }
-	/**
-	 *  Constructor for Billing
-	**/
-
-	public Billing() throws IOException, InterruptedException {
-		OfficialIDs = getCustomerID(getJSON());
-		System.out.print("Welcome to the HPMS Billing page please enter your customer ID \n"+
-						 "Your ID: ");
-		Scanner scan = new Scanner(System.in);
-		int possibleID = scan.nextInt();
-		if(verify(possibleID)) {
-			getBillingInfo(possibleID);
-		}else {
-			System.out.println("Invalid ID");
-			System.exit(1);
-		}
-	}
-
-	/**
-	 *  Another constructor for Billing
-	 *  @param id the id entered by the user
-	**/
-
-	public Billing(int id) throws JSONException, IOException, InterruptedException {
-		getBillingInfo(id);
-	}
-	
-
 	private static void runHPMS() throws IOException, InterruptedException {
 		System.out.print("Welcome to the Happypets Patient Management Service, what would you like to do?\n"+
 						   "1. HappyPets Billing\n"+
@@ -133,41 +98,54 @@ public class HPMS {
 		
 	}
 
-
 	/**
-	 *  Runs the billing component of HPMS
+	 * Runs the billing component of HPMS
+	 * @throws IOException for wrong file
+	 * @throws InterruptedException for HTTP interruption
 	**/
 	public static void runBilling() throws IOException, InterruptedException  {
-		Billing component = new Billing();
+		Billing billing = new Billing();
+		Billing(billing);
 	}
 	
 	/**
 	 *  Runs the billing component and returns customer report based on customer id
 	 *  @param id the id that is provided to the billing component
+	 *  @throws JSONException for if the JSON object cannot be found
+	 *  @throws IOException for wrong file
+	 *  @throws InterruptedException for HTTP interruption
 	**/
 	public static void runBilling(int id) throws JSONException, IOException, InterruptedException {
-		Billing billing = new Billing(id);
+		Billing billing = new Billing();
+		Billing(billing, id);
+
 	}
 	
-	
-	public static void runPP() {
-		System.out.println("This is the method that will implement the patient portal component, whatever that means.");
-		//use patient-portal.jar to access online portal
+	/**
+	 * Runs the Patient Portal component of HPMS
+	 * @throws IOException for wrong file
+	 * @throws InterruptedException for HTTP interruption
+	**/
+	public static void runPP() throws IOException, InterruptedException{
+		Portal portal = new Portal();
 	}
 	
 	/**
 	 * Runs patient portal and returns customer report based on customer id
-	 * @param the id that is provided to the patient portal 
+	 * @param id the id that is provided to the patient portal 
+	 * @throws IOException for wrong file
+	 * @throws InterruptedException for HTTP interruption
 	**/
-	public static void runPP(int id) {
-		System.out.println("run PP with id "+id);
+	public static void runPP(int id) throws IOException, InterruptedException {
+		Portal portal = new Portal(id);
 	}
 	
 	/**
 	 * Makes sure that arguments entered by user are valid 
 	 * @param argument is a string argument that is being tested
-	 * @throws InterruptedException 
-	 * @throws IOException 
+	 * @throws InterruptedException for HTTP interruption
+	 * @throws IOException for wrong file
+	 * @return boolean to indicate if an argument is valid or not.
 	**/
 	public static boolean valid(String argument) throws IOException, InterruptedException {
 		if ((argument.charAt(0)=='-') && (argument.charAt(1) =='-')) {
@@ -196,4 +174,53 @@ public class HPMS {
 			return false;
 		}
 	}
+
+	/**
+	 *  Billing
+	 *  @throws IOException for missing file
+	 *  @throws InterruptedException for HTTP interruption
+	**/
+	public static void Billing(Billing billing) throws IOException, InterruptedException {
+		System.out.print("Welcome to the HPMS Billing page please enter your customer ID \n"+
+						 "Your ID: ");
+		Scanner scan = new Scanner(System.in);
+		int possibleID = scan.nextInt();
+		if(billing.verify(possibleID)) {
+			billing.getBillingInfo(possibleID);
+		}else {
+			System.out.println("Invalid ID");
+			System.exit(1);
+		}
+	}
+	
+	/**
+	 *  Another constructor for Billing
+	 *  @param id The id of a customer of happypets
+	 *  @throws IOException for missing file
+	 *  @throws InterruptedException for HTTP interruption
+	**/
+	public static void Billing(Billing billing, int id) throws JSONException, IOException, InterruptedException {
+		billing.getBillingInfo(id);
+	}
+	
+	public static void Portal(Portal portal) throws IOException, InterruptedException {
+        	System.out.println("Welcome to HMPS Portal, please enter your customer id \nYour ID: ");
+        	final Scanner scan = new Scanner(System.in);
+        	final int possibleID = scan.nextInt();
+        	if (portal.verify(possibleID)) {
+            		portal.getPortalInfo(possibleID);
+        	}
+        	else {
+            		System.out.println("Invalid ID");
+            		System.exit(1);
+        }
+    }
+    
+    public Portal(Portal portal, int id) throws IOException, InterruptedException {
+        portal.getPortalInfo(id);
+    }
+
+	
 }
+	
+
