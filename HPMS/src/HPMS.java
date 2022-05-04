@@ -62,6 +62,56 @@ public class HPMS {
 	/**
 	 *  Runs the main HPMS application
 	**/
+
+	 public Portal() throws IOException, InterruptedException {
+        // fills the arraylist of official id's with all the id's extracted
+        //from the JSON
+        OfficialIDs = getCustomerID(getJSON());
+        System.out.println("Welcome to HMPS Portal, please enter your customer id \n Your ID: ");
+        Scanner scan  = new Scanner(System.in);
+        //reads computer input
+        int possibleID =  scan.nextInt();
+        //verify that id is in the array of customer id's
+        if(verify(possibleID)){
+            getPortalInfo(possibleID);
+        }else{
+            System.out.println("Invalid ID");
+            System.exit(1);
+        }
+
+
+    }
+    public Portal(int id) throws IOException, InterruptedException {
+        getPortalInfo(id);
+    }
+	/**
+	 *  Constructor for Billing
+	**/
+
+	public Billing() throws IOException, InterruptedException {
+		OfficialIDs = getCustomerID(getJSON());
+		System.out.print("Welcome to the HPMS Billing page please enter your customer ID \n"+
+						 "Your ID: ");
+		Scanner scan = new Scanner(System.in);
+		int possibleID = scan.nextInt();
+		if(verify(possibleID)) {
+			getBillingInfo(possibleID);
+		}else {
+			System.out.println("Invalid ID");
+			System.exit(1);
+		}
+	}
+
+	/**
+	 *  Another constructor for Billing
+	 *  @param id the id entered by the user
+	**/
+
+	public Billing(int id) throws JSONException, IOException, InterruptedException {
+		getBillingInfo(id);
+	}
+	
+
 	private static void runHPMS() throws IOException, InterruptedException {
 		System.out.print("Welcome to the Happypets Patient Management Service, what would you like to do?\n"+
 						   "1. HappyPets Billing\n"+
@@ -82,6 +132,7 @@ public class HPMS {
 		}
 		
 	}
+
 
 	/**
 	 *  Runs the billing component of HPMS
