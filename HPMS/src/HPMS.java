@@ -1,3 +1,4 @@
+package HPMS;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -128,6 +129,7 @@ public class HPMS {
 	**/
 	public static void runPP() throws IOException, InterruptedException{
 		Portal portal = new Portal();
+		Portal(portal);
 	}
 	
 	/**
@@ -137,7 +139,8 @@ public class HPMS {
 	 * @throws InterruptedException for HTTP interruption
 	**/
 	public static void runPP(int id) throws IOException, InterruptedException {
-		Portal portal = new Portal(id);
+		Portal portal = new Portal();
+		Portal(portal, id);
 	}
 	
 	/**
@@ -216,7 +219,7 @@ public class HPMS {
         }
     }
     
-    public Portal(Portal portal, int id) throws IOException, InterruptedException {
+    public static void Portal(Portal portal, int id) throws IOException, InterruptedException {
         portal.getPortalInfo(id);
     }
 
