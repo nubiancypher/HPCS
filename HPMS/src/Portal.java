@@ -1,5 +1,4 @@
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -13,6 +12,7 @@ import java.util.Scanner;
 
 
 public class Portal {
+
     public ArrayList<Integer>OfficialIDs;
 
     public static String getJSON() throws IOException, InterruptedException {
@@ -44,7 +44,7 @@ public class Portal {
         return IDs;
 
     }
-    private boolean verify(int possilbeID) {//verifies customer ID is a valid ID from user
+    boolean verify(int possilbeID) {//verifies customer ID is a valid ID from user
         //run through the arraylist of cusomter ID's
         for (int i =0;i<OfficialIDs.size();i++) {
             //checks to see if the possilbe id is in the array
@@ -58,7 +58,7 @@ public class Portal {
 
     }
 
-    private int find(int possibleID, ArrayList<JSONObject>patients){//finds the JSONObject,based on customer ID
+    int find(int possibleID, ArrayList<JSONObject> patients){//finds the JSONObject,based on customer ID
         int found = 0;// index of the id if within the array
         for(int i =0;i<patients.size(); i++){
             JSONObject guy = patients.get(i);
@@ -88,7 +88,7 @@ public class Portal {
     }
 
 
-    public Portal() throws IOException, InterruptedException {
+    public void displayMenu() throws IOException, InterruptedException {
         // fills the arraylist of official id's with all the id's extracted
         //from the JSON
         OfficialIDs = getCustomerID(getJSON());
@@ -106,11 +106,6 @@ public class Portal {
 
 
     }
-    public Portal(int id) throws IOException, InterruptedException {
-        getPortalInfo(id);
-    }
-
-
 
 
 
