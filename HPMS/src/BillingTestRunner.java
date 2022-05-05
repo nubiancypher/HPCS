@@ -1,23 +1,24 @@
-import org.junit.*;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 /**
- * PortalTest Runner
+ * Billing TestRunner
  * @author Ken Cooper and Jamal Bourne
- * This class is the test harness for automating the testing of 
- * all the methods within the Portal Component 
+ * This test automates the process of testing all the methods
+ * within teh Billing component 
+ * 
  */
 
-
-public class PortalTestRunner {
+public class BillingTestRunner {
     /**
      * 
      * @param args
-     * the main conducts is used to execute all of the tests for the portal component 
+     * the main method is used to execute all of the tests for the Billing component
      */
+    
     public static void main(String[]args){
-        Result result = JUnitCore.runClasses(PortalTest.class);
+        
+        Result result = JUnitCore.runClasses(BillingTest.class);
 
         if (result.getFailures().size()>0){
             System.err.println("A unit test has failed");
